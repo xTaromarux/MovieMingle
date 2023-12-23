@@ -37,7 +37,7 @@ const Home: NextPage = () => {
           </h1>
           <AuthShowcase />
 
-          <div className="flex h-[60vh] justify-center overflow-y-scroll px-4 text-2xl">
+          <div className="flex h-[60vh] justify-center px-4 text-2xl">
             {postQuery.data ? (
               <div className="flex flex-col gap-4">
                 {postQuery.data?.map((p: Post) => {
