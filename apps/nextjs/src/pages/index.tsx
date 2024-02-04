@@ -2,46 +2,49 @@ import ImageSlider from "../components/ImageSlider";
 import ReactCardSlider from "../components/ReactCardSlider";
 import { PageLayout } from "../components/Layout";
 import Head from "next/head";
+import { trpc } from "../utils/trpc";
+import { Movie } from "../types/index";
+import { useState, useEffect } from "react";
+import { LoadingPage } from "../components/loading";
 
 export default function Home() {
-  const slidesAvailable = [
-    {
-      image: "/images/Legends_cardImg.jpeg",
-    },
-    {
-      image: "/images/Mickey_mouse_cardImg.jpeg",
-    },
-    {
-      image: "/images/Moana_cardImg.jpeg",
-    },
-    {
-      image: "/images/My_music_story_cardImg.jpeg",
-    },
-    {
-      image: "/images/Raya_cardImg.jpeg",
-    },
-    {
-      image: "/images/Soul_cardImg.jpeg",
-    },
-    {
-      image: "/images/Tangled_cardImg.jpeg",
-    },
-  ];
+  const movieQuery = trpc.movie.all.useQuery();
 
-  const slidesSoon = [
-    {
-      image: "/images/The_Simpsons_cardImg.jpeg",
-    },
-    {
-      image: "/images/The_falcon_and_the_winter_soldier_cardImg.jpeg",
-    },
-    {
-      image: "/images/Assembled_cardImg.jpeg",
-    },
-    {
-      image: "/images/Burrow_cardImg.jpeg",
-    },
-  ];
+  useEffect(() => {
+    if (movieQuery.data !== undefined) {
+      setMovies(movieQuery.data);
+    }
+  }, [movieQuery.data]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [movies, setMovies] = useState<Movie[] | null>(
+    movieQuery.data === undefined ? null : movieQuery.data,
+  );
+
+  const [slidesAvailable, setSlidesAvailable] = useState<Movie[] | null>(null);
+  const [slidesSoon, setSlidesSoon] = useState<Movie[] | null>(null);
+
+  useEffect(() => {
+    if (movies) {
+      const filteredPlayingMovies = movies.filter(
+        (movie) => movie.stateType === "playing",
+      );
+      setSlidesAvailable(filteredPlayingMovies);
+
+      const filteredComingMovies = movies.filter(
+        (movie) => movie.stateType === "coming",
+      );
+      setSlidesSoon(filteredComingMovies);
+    }
+  }, [movies]);
+
+  if (movieQuery.isLoading)
+    return (
+      <div className="flex grow">
+        <LoadingPage />
+      </div>
+    );
+
   return (
     <>
       <Head>
@@ -58,11 +61,22 @@ export default function Home() {
           <a className=" pl-2 text-xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline">
             DOSTĘPNE
           </a>
-          <ReactCardSlider slides={slidesAvailable} />
+          {slidesAvailable ? (
+            <ReactCardSlider
+              slides={slidesAvailable}
+              showScrollButtons={true}
+            />
+          ) : (
+            <div></div>
+          )}
           <a className="text-xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
             WKRÓTCE
           </a>
-          <ReactCardSlider slides={slidesSoon} />
+          {slidesSoon ? (
+            <ReactCardSlider slides={slidesSoon} showScrollButtons={false} />
+          ) : (
+            <div></div>
+          )}
         </div>
       </PageLayout>
     </>
