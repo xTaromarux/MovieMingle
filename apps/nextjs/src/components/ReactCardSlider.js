@@ -33,11 +33,13 @@ const ReactCardSlider = (props) => {
     {
       id: "main-slider-container",
     },
-    /*#__PURE__*/ _react.default.createElement(_md.MdChevronLeft, {
-      size: 40,
-      className: "slider-icon left",
-      onClick: slideLeft,
-    }),
+    props.showScrollButtons
+      ? /*#__PURE__*/ _react.default.createElement(_md.MdChevronLeft, {
+          size: 40,
+          className: "slider-icon left",
+          onClick: slideLeft,
+        })
+      : null,
     /*#__PURE__*/ _react.default.createElement(
       "div",
       {
@@ -49,23 +51,25 @@ const ReactCardSlider = (props) => {
           {
             className: "slider-card",
             key: index,
-            onClick: () => slide.clickEvent(),
+            onClick: () => slide.clickEvent(slide),
           },
           /*#__PURE__*/ _react.default.createElement("div", {
             className: "slider-card-image",
             style: {
-              backgroundImage: "url(".concat(slide.image, ")"),
+              backgroundImage: "url(".concat(slide.cardImg, ")"),
               backgroundSize: "cover",
             },
           }),
         );
       }),
     ),
-    /*#__PURE__*/ _react.default.createElement(_md.MdChevronRight, {
-      size: 40,
-      className: "slider-icon right",
-      onClick: slideRight,
-    }),
+    props.showScrollButtons === true
+      ? /*#__PURE__*/ _react.default.createElement(_md.MdChevronRight, {
+          size: 40,
+          className: "slider-icon right",
+          onClick: slideRight,
+        })
+      : null,
   );
 };
 

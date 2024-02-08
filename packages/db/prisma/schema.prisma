@@ -1,18 +1,43 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model Movie {
+  id String    @id @default(cuid())
+  backgroundImg String ? @db.Text
+  cardImg String? @db.Text
+  titleImg String? @db.Text
+  title String? @db.Text
+  subTitle String? @db.Text
+  description String? @db.Text
+  stateType String? @db.Text
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  schedule Schedule[]
+}
+
+model Person {
+  id String    @id @default(cuid())
+  name String? @db.Text
+  email String? @db.Text
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  role String? @db.Text
+}
+
+model Schedule {
+  id String    @id @default(cuid())
+  movie  Movie   @relation(fields: [movieId], references: [id])
+  movieId String
+  time String? @db.Text
+  remainTickets Int 
+  fromDate DateTime  @default(now())
+  toDate DateTime  @default(now()) 
+  roomNumber Int 
+  @@index([movieId])
 }

@@ -10,7 +10,7 @@ import Menu from "../components/Menu";
 
 const MovieMingle: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   const CLERK_PUBLISHABLE_KEY =
-    "pk_test_dHJ1c3RlZC1oYXJlLTc4LmNsZXJrLmFjY291bnRzLmRldiQ";
+    "pk_test_b3Blbi1zYWxtb24tNTcuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY} {...pageProps}>

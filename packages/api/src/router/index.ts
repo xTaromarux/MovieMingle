@@ -1,9 +1,13 @@
 import { router } from "../trpc";
-import { postRouter } from "./post";
+import { movieRouter } from "./movie";
+import { personRouter } from "./person";
+import { scheduleRouter } from "./schedule";
 import { authRouter } from "./auth";
 
 export const appRouter = router({
-  post: postRouter,
+  movie: movieRouter,
+  person: personRouter,
+  schedule: scheduleRouter,
   auth: authRouter,
 });
 
