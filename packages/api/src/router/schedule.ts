@@ -9,7 +9,16 @@ export const scheduleRouter = router({
     return ctx.prisma.schedule.findFirst({ where: { id: input } });
   }),
   create: protectedProcedure
-    .input(z.object({ title: z.string(), content: z.string() }))
+    .input(
+      z.object({
+        movieId: z.string(),
+        time: z.string(),
+        remainTickets: z.number(),
+        fromDate: z.date(),
+        toDate: z.date(),
+        roomNumber: z.number(),
+      }),
+    )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.schedule.create({ data: input });
     }),

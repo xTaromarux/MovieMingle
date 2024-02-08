@@ -9,7 +9,7 @@ export const personRouter = router({
     return ctx.prisma.person.findFirst({ where: { id: input } });
   }),
   create: protectedProcedure
-    .input(z.object({ title: z.string(), content: z.string() }))
+    .input(z.object({ name: z.string(), email: z.string(), role: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.person.create({ data: input });
     }),
