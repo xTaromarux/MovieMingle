@@ -12,7 +12,9 @@ export default function Home() {
   const movieQuery = trpc.movie.all.useQuery();
 
   const [movies, setMovies] = useState<Movie[] | null>(
-    movieQuery.data === undefined ? null : movieQuery.data,
+    movieQuery.data !== undefined && movieQuery.data !== null
+      ? movieQuery.data
+      : null,
   );
 
   useEffect(() => {
