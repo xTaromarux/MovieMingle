@@ -51,7 +51,7 @@ const ReactCardSlider = (props) => {
           {
             className: "slider-card",
             key: index,
-            onClick: () => slide.clickEvent(),
+            onClick: () => slide.clickEvent(slide),
           },
           /*#__PURE__*/ _react.default.createElement("div", {
             className: "slider-card-image",

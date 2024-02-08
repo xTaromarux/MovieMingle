@@ -6,9 +6,14 @@ import { trpc } from "../utils/trpc";
 import { Movie } from "../types/index";
 import { useState, useEffect } from "react";
 import { LoadingPage } from "../components/loading";
+import router from "next/router";
 
 export default function Home() {
   const movieQuery = trpc.movie.all.useQuery();
+
+  const [movies, setMovies] = useState<Movie[] | null>(
+    movieQuery.data === undefined ? null : movieQuery.data,
+  );
 
   useEffect(() => {
     if (movieQuery.data !== undefined) {
@@ -16,24 +21,21 @@ export default function Home() {
     }
   }, [movieQuery.data]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [movies, setMovies] = useState<Movie[] | null>(
-    movieQuery.data === undefined ? null : movieQuery.data,
-  );
-
   const [slidesAvailable, setSlidesAvailable] = useState<Movie[] | null>(null);
   const [slidesSoon, setSlidesSoon] = useState<Movie[] | null>(null);
 
   useEffect(() => {
     if (movies) {
-      const filteredPlayingMovies = movies.filter(
-        (movie) => movie.stateType === "playing",
-      );
+      const filteredPlayingMovies = movies
+        .filter((movie) => movie.stateType === "playing")
+        .map((movie) => ({ ...movie, clickEvent: handleCardClick }));
+
       setSlidesAvailable(filteredPlayingMovies);
 
-      const filteredComingMovies = movies.filter(
-        (movie) => movie.stateType === "coming",
-      );
+      const filteredComingMovies = movies
+        .filter((movie) => movie.stateType === "coming")
+        .map((movie) => ({ ...movie, clickEvent: handleCardClick }));
+
       setSlidesSoon(filteredComingMovies);
     }
   }, [movies]);
@@ -45,10 +47,18 @@ export default function Home() {
       </div>
     );
 
+  const handleCardClick = (movie: Movie) => {
+    console.log("Kliknięto na film:", movie);
+    // Przekieruj użytkownika do strony filmu, przekazując obiekt filmu jako zapytanie
+    router.push({
+      pathname: "/movie",
+      query: { movie: JSON.stringify(movie) },
+    });
+  };
   return (
     <>
       <Head>
-        <title>Vocabulary learning App</title>
+        <title></title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageLayout>
@@ -65,6 +75,7 @@ export default function Home() {
             <ReactCardSlider
               slides={slidesAvailable}
               showScrollButtons={true}
+              clickEvent={(movie: Movie) => handleCardClick(movie)}
             />
           ) : (
             <div></div>
@@ -73,7 +84,11 @@ export default function Home() {
             WKRÓTCE
           </a>
           {slidesSoon ? (
-            <ReactCardSlider slides={slidesSoon} showScrollButtons={false} />
+            <ReactCardSlider
+              slides={slidesSoon}
+              showScrollButtons={false}
+              clickEvent={(movie: Movie) => handleCardClick(movie)}
+            />
           ) : (
             <div></div>
           )}
