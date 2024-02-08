@@ -3,7 +3,7 @@ import ReactCardSlider from "../components/ReactCardSlider";
 import { PageLayout } from "../components/Layout";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import { Movie } from "../types/index";
+import { Movie } from "@acme/db";
 import { useState, useEffect } from "react";
 import { LoadingPage } from "../components/loading";
 import router from "next/router";
