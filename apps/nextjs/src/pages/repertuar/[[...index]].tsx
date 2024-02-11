@@ -1,6 +1,6 @@
 // pages/movie/index.tsx
 import { useEffect, useState } from "react";
-import { Movie } from "../../types/index";
+import { Movie } from "@acme/db";
 import { LoadingSpinner, LoadingPage } from "../../components/loading";
 import { PageLayout } from "../../components/Layout";
 import { trpc } from "../../utils/trpc";
