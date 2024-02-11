@@ -7,5 +7,5 @@ export type TicketsType = {
 };
 
 export type SeatsType = {
-  [key: string]: number[];
+  [key: string]: (number | undefined)[];
 };

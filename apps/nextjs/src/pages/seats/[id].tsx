@@ -41,7 +41,11 @@ const Seats = () => {
     setSeatDetails(newMovieSeatDetails);
   };
 
-  const onSeatClick = (seatValue: number, rowIndex: number, key: string) => {
+  const onSeatClick = (
+    seatValue: number | undefined,
+    rowIndex: number,
+    key: string,
+  ) => {
     const concretSeatDetails = seatDetails[key];
 
     if (seatDetails) {
@@ -62,7 +66,7 @@ const Seats = () => {
    * 2 - Selected
    * 3 - Blocked
    */
-  const getClassNameForSeats = (seatValue: number) => {
+  const getClassNameForSeats = (seatValue: number | undefined) => {
     let dynamicClass;
     if (seatValue === 0) {
       // Not booked

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -15,10 +16,12 @@ const Tickets = () => {
   const [seconds, setSeconds] = useState(5);
   const [isTimerCompleted, setIsTimerCompleted] = useState(false);
   let movieSeatDetails: SeatsType = {};
+  // eslint-disable-next-line prefer-const
   let bookingChargePerTicket = 20,
     ticketCost: number,
     bookingFee: number,
     totalCost: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { movieId, seatDetails }: any = router.query;
   const movie = movies.find((mov) => mov.id === movieId);
   if (seatDetails) {
@@ -31,7 +34,7 @@ const Tickets = () => {
     } else {
       setIsTimerCompleted(true);
     }
-  });
+  }, [seconds]);
 
   const computeSelectedSeats = () => {
     const selectedSeats: string[] = [];
@@ -156,7 +159,6 @@ const Tickets = () => {
           </Link>
           <div className={styles.cardTitle}>BOOKING SUMMARY</div>
         </div>
-        <p className={styles.movieName}>{movie.name}</p>
         <RenderSeatDetails selectedSeats={selectedSeats} />
         <RenderBookingCharge selectedSeats={selectedSeats} />
         <hr className={styles.hrStyle} />
