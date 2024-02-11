@@ -3,23 +3,17 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClapperboard } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-
-interface MovieDetailsProps {
-  backgroundImg?: string;
-  cardImg?: string;
-  titleImg?: string;
-  title?: string;
-  subTitle?: string;
-  description?: string;
-  stateType?: string;
-}
+import { LoadingPage } from "../components/loading";
+import router from "next/router";
+import { type MovieDetailsProps } from "../types/index";
 
 const MovieDetailsComponent: React.FC<MovieDetailsProps> = ({
+  id,
   backgroundImg,
   cardImg,
   titleImg,
-  title,
   subTitle,
+  title,
   description,
   stateType,
 }) => {
@@ -53,58 +47,88 @@ const MovieDetailsComponent: React.FC<MovieDetailsProps> = ({
     }
   }, [titleImg]);
 
-  return (
-    <div style={containerStyle}>
-      <div
-        style={movieInfoContainerStyle}
-        className="grid-cols-2 grid-rows-1 gap-4"
-      >
-        <div className="grid-rows-10 grid grid-cols-12 ">
-          <Image
-            src={titleImgSrc}
-            alt={`${subTitle}`}
-            width={400}
-            height={300}
-            quality={100}
-            className="col-span-6 row-span-1 row-start-1"
-            style={{ width: "auto" }}
-          />
+  const movieObject = {
+    id: id,
+    backgroundImg: backgroundImg,
+    cardImg: cardImg,
+    titleImg: titleImg,
+    subTitle: subTitle,
+    title: title,
+    description: description,
+    stateType: stateType,
+  };
 
-          <Button
-            className="col-span-4 row-span-1 row-start-4"
-            variant="contained"
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              height: "70px",
-              borderRadius: "10px",
-              fontSize: "15px",
-              fontWeight: "bold",
-            }}
-            startIcon={
-              <FontAwesomeIcon
-                icon={faClapperboard}
-                style={{
-                  width: "1.5rem",
-                  height: "1.5rem",
-                  color: "black",
-                  padding: "10px",
-                }}
-              />
-            }
-          >
-            Wybierz miejsce
-          </Button>
-          <p className="col-span-10 row-span-1 row-start-5 text-white">
-            SubTitle: {subTitle}
-          </p>
-          <p className="col-span-12 row-span-1 row-start-6  text-xl text-white">
-            {description}
-          </p>
+  const handleCardClick = (movie: MovieDetailsProps) => {
+    console.log(movie);
+
+    router.push({
+      pathname: `/seats/${id}`,
+      query: { movieFromReq: JSON.stringify(movie) },
+    });
+  };
+
+  if (titleImgSrc == "")
+    return (
+      <div className="flex grow">
+        <LoadingPage />
+      </div>
+    );
+  else {
+    return (
+      <div style={containerStyle}>
+        <div
+          style={movieInfoContainerStyle}
+          className="grid-cols-2 grid-rows-1 gap-4"
+        >
+          <div className="grid-rows-10 grid grid-cols-12 ">
+            <Image
+              src={titleImgSrc}
+              alt={`${subTitle}`}
+              width={400}
+              height={300}
+              quality={100}
+              className="col-span-6 row-span-1 row-start-1"
+              style={{ width: "auto" }}
+            />
+            <Button
+              variant="contained"
+              className="col-span-4 row-span-1 row-start-4"
+              onClick={() => {
+                handleCardClick(movieObject);
+              }}
+              style={{
+                backgroundColor: "white",
+                color: "black",
+                height: "70px",
+                borderRadius: "10px",
+                fontSize: "15px",
+                fontWeight: "bold",
+              }}
+              startIcon={
+                <FontAwesomeIcon
+                  icon={faClapperboard}
+                  style={{
+                    width: "1.5rem",
+                    height: "1.5rem",
+                    color: "black",
+                    padding: "10px",
+                  }}
+                />
+              }
+            >
+              Wybierz miejsce
+            </Button>
+            <p className="col-span-10 row-span-1 row-start-5 text-white">
+              SubTitle: {subTitle}
+            </p>
+            <p className="col-span-12 row-span-1 row-start-6  text-xl text-white">
+              {description}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default MovieDetailsComponent;

@@ -32,6 +32,7 @@ const ReactCardSlider = (props) => {
     "div",
     {
       id: "main-slider-container",
+      className: "grdi items-center justify-center ",
     },
     props.showScrollButtons
       ? /*#__PURE__*/ _react.default.createElement(_md.MdChevronLeft, {

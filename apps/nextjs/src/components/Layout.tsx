@@ -7,7 +7,7 @@ export const PageLayout = (props: PropsWithChildren) => {
       style={{ height: "100dvh" }}
     >
       <div
-        className="flex h-full w-full flex-col"
+        className="flex h-full w-full flex-col items-center"
         style={{ backgroundColor: "#1b1e2c" }}
       >
         {props.children}

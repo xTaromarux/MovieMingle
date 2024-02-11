@@ -1,0 +1,14 @@
+.renderMovieSection {
+  padding: 5px 0;
+}
+.renderMovieSection:before {
+  content: "\a0";
+  display: block;
+  padding: 2px 0;
+  line-height: 1px;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.scheduleContainer {
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+}
