@@ -1,3 +1,7 @@
+import React from "react";
+import { TicketsType } from "../constants/models/Movies";
+import { movies } from "../constants/movies";
+
 export type Post = {
   id: string;
   title: string;
@@ -36,3 +40,22 @@ export type Schedule = {
   toDate: Date;
   roomNumber: number;
 };
+
+export default React.createContext<MovieContextModal>({ movies: movies });
+
+interface MovieContextModal {
+  movies: TicketsType[];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  setMovies?: Function;
+}
+
+export interface MovieDetailsProps {
+  id?: string;
+  backgroundImg?: string;
+  cardImg?: string;
+  titleImg?: string;
+  title?: string;
+  subTitle?: string;
+  description?: string;
+  stateType?: string;
+}

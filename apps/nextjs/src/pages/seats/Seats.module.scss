@@ -1,0 +1,77 @@
+.seatsContainer {
+  text-align: center;
+  height: 100vh;
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+}
+
+.seatsHolder {
+  margin: 10px;
+}
+.seatsLeafContainer {
+  margin-left: -30px;
+}
+.seats {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 11px;
+  border-radius: 3px;
+  outline: 2px solid rgba(144, 169, 89, 1);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 11%), 0 2px 4px 0 rgb(0 0 0 / 14%);
+}
+.colName {
+  color: #ffffff;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.seatSelected0 {
+  color: red !important;
+}
+.seatBlocked {
+  cursor: default;
+  // background: #fff;
+  color: rgba(27, 30, 44, 1);
+  outline: 2px solid rgba(166, 61, 64, 1);
+  background: rgba(166, 61, 64, 1);
+  box-shadow: none;
+}
+.seatBooked {
+  color: rgba(27, 30, 44, 1);
+  outline: 2px solid rgba(233, 184, 114, 1);
+  background: rgba(233, 184, 114, 1);
+  cursor: default;
+}
+.seatSelected {
+  color: rgba(27, 30, 44, 1);
+  background: rgba(144, 169, 89, 1);
+}
+.paymentButton {
+  background: none !important;
+}
+.paymentButtonContainer {
+  position: sticky;
+  bottom: 10px;
+  border: none;
+  border-radius: 10pt;
+  box-shadow: 0 0 0 1pt rgb(255, 255, 255);
+  outline-color: transparent; /* for high contrast modes */
+  transition: 0.1s;
+}
+
+.movieInfo {
+  color: #ffffff;
+}
+
+.paymentButtonContainer:focus {
+  box-shadow: 0 0 3pt 2pt cornflowerblue;
+}
+
+.paymentButtonContainer:active {
+  background-color: white !important;
+  color: black !important;
+}

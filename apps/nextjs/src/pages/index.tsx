@@ -50,7 +50,6 @@ export default function Home() {
     );
 
   const handleCardClick = (movie: Movie) => {
-    console.log("Kliknięto na film:", movie);
     // Przekieruj użytkownika do strony filmu, przekazując obiekt filmu jako zapytanie
     router.push({
       pathname: "/movie",
