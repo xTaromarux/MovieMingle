@@ -48,7 +48,11 @@ function RenderMovieSection({ movie }: { movie: Movie }) {
         >
           <div className="col-span-2 col-start-1">
             <Image
-              src={movie.cardImg !== undefined ? movie.cardImg : ""}
+              src={
+                movie.cardImg !== undefined && movie.cardImg !== null
+                  ? movie.cardImg
+                  : ""
+              }
               alt={`${movie.subTitle}`}
               width={400}
               height={400}
