@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Movie } from "@acme/db";
 import { LoadingSpinner, LoadingPage } from "../../components/loading";
-import { PageLayout } from "../../components/Layout";
 import { trpc } from "../../utils/trpc";
 import { Schedule } from "@acme/db";
 import { Button } from "@mui/material";
