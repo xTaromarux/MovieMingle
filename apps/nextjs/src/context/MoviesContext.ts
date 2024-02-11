@@ -6,5 +6,6 @@ export default React.createContext<MovieContextModal>({ movies: movies });
 
 interface MovieContextModal {
   movies: TicketsType[];
+  // eslint-disable-next-line @typescript-eslint/ban-types
   setMovies?: Function;
 }

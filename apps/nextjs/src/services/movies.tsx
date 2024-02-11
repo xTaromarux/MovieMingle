@@ -4,6 +4,7 @@ import { SeatsType } from "../constants/models/Movies";
 
 function useGetMovies() {
   const fetcher = (url: string) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     axios.get(url).then((res: { data: any }) => res.data);
   const { data, error } = useSWR(`/api/movies`, fetcher);
 
@@ -16,6 +17,7 @@ function useGetMovies() {
 
 function useGetMovieById(id: string) {
   const fetcher = (url: string) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     axios.get(url).then((res: { data: any }) => res.data);
   const { data, error } = useSWR(`/api/movies/${id}`, fetcher);
 

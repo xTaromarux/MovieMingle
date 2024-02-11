@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Movie } from "@acme/db";
 import { LoadingSpinner, LoadingPage } from "../../components/loading";
-import { PageLayout } from "../../components/Layout";
 import { trpc } from "../../utils/trpc";
 import { Schedule } from "@acme/db";
 import { Button } from "@mui/material";
@@ -44,7 +43,7 @@ function RenderMovieSection({ movie }: { movie: Movie }) {
     <>
       <div className={`${styles.renderMovieSection} mx-2 h-96 w-full `}>
         <div
-          className={`mx-2 grid h-96 w-full grid-cols-6 grid-rows-1 items-center`}
+          className={`mx-2 grid h-96 w-full grid-cols-6 grid-rows-1 items-center `}
         >
           <div className="col-span-2 col-start-1">
             <Image
@@ -147,51 +146,59 @@ const MoviePage = () => {
     );
 
   return (
-    <PageLayout>
-      <div className="my-40 flex w-4/6 flex-col items-center justify-center gap-4 ">
-        <div className="grid w-full grid-cols-1 grid-rows-1 items-start justify-start">
-          <a className="text-4xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
-            NADCHODZĄCE FILMY
-          </a>
-        </div>
-        {slidesSoon ? (
-          <div className="grid grid-cols-4 grid-rows-1 gap-3">
-            {slidesSoon.map((movie, index) => (
-              <Image
-                key={index}
-                src={
-                  movie.cardImg !== undefined && movie.cardImg !== null
-                    ? movie.cardImg
-                    : ""
-                }
-                alt={`${movie.subTitle}`}
-                width={300}
-                height={300}
-                quality={100}
-                className={`col-span-1 col-start-${index} row-span-1 row-start-1 w-full`}
-                style={{ width: "auto" }}
-              />
-            ))}
+    <main
+      className="overflow-none flex justify-center"
+      style={{ height: "100dvh" }}
+    >
+      <div
+        className="flex h-full w-full flex-col items-center"
+        style={{ backgroundColor: "#1b1e2c" }}
+      >
+        <div className="my-40 flex w-4/6 flex-col items-center justify-center gap-4 ">
+          <div className="grid w-full grid-cols-1 grid-rows-1 items-start justify-start">
+            <a className="text-4xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
+              NADCHODZĄCE FILMY
+            </a>
           </div>
-        ) : (
-          <div></div>
-        )}
-        <div className="mt-14 grid w-full grid-cols-1 grid-rows-1 items-start justify-start">
-          <a className="text-4xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
-            REPERTUAR
-          </a>
-        </div>
-        {slidesAvailable ? (
-          <div className="w-full">
-            {slidesAvailable.map((movie, index) => (
-              <RenderMovieSection key={index} movie={movie} />
-            ))}
+          {slidesSoon ? (
+            <div className="grid grid-cols-4 grid-rows-1 gap-3">
+              {slidesSoon.map((movie, index) => (
+                <Image
+                  key={index}
+                  src={
+                    movie.cardImg !== undefined && movie.cardImg !== null
+                      ? movie.cardImg
+                      : ""
+                  }
+                  alt={`${movie.subTitle}`}
+                  width={300}
+                  height={300}
+                  quality={100}
+                  className={`col-span-1 col-start-${index} row-span-1 row-start-1 w-full`}
+                  style={{ width: "auto" }}
+                />
+              ))}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <div className="mt-14 grid w-full grid-cols-1 grid-rows-1 items-start justify-start">
+            <a className="text-4xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
+              REPERTUAR
+            </a>
           </div>
-        ) : (
-          <div></div>
-        )}
+          {slidesAvailable ? (
+            <div className="w-full">
+              {slidesAvailable.map((movie, index) => (
+                <RenderMovieSection key={index} movie={movie} />
+              ))}
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
-    </PageLayout>
+    </main>
   );
 };
 

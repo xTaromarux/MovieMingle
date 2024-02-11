@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import Image from "next/image";
+import { Typography } from "@mui/material";
 
 const NotFoundPage = () => {
   return (
