@@ -159,7 +159,11 @@ const MoviePage = () => {
             {slidesSoon.map((movie, index) => (
               <Image
                 key={index}
-                src={movie.cardImg !== undefined ? movie.cardImg : ""}
+                src={
+                  movie.cardImg !== undefined && movie.cardImg !== null
+                    ? movie.cardImg
+                    : ""
+                }
                 alt={`${movie.subTitle}`}
                 width={300}
                 height={300}
