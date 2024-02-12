@@ -70,7 +70,7 @@ export default function Home() {
           style={{ width: "100%", padding: "100px 0 20px 20px" }}
         >
           <a className=" pl-2 text-xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline">
-            DOSTĘPNE
+            AVAILABLE
           </a>
           {slidesAvailable ? (
             <ReactCardSlider
@@ -82,7 +82,7 @@ export default function Home() {
             <div></div>
           )}
           <a className="text-xl font-bold uppercase tracking-wide text-white no-underline hover:no-underline ">
-            WKRÓTCE
+            SOON
           </a>
           {slidesSoon ? (
             <ReactCardSlider

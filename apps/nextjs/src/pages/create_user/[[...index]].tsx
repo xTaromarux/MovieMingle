@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Movie } from "../../types/index";
 import MovieDetailsComponent from "../../components/MovieDetailsComponent";
-import { LoadingPage } from "../../components/loading";
 
 const MoviePage = () => {
   const router = useRouter();
@@ -24,11 +23,7 @@ const MoviePage = () => {
   }, [movie]);
 
   if (!parsedMovie) {
-    return (
-      <div className="flex grow">
-        <LoadingPage />
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
   return <MovieDetailsComponent {...parsedMovie} />;

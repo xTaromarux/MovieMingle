@@ -1,23 +1,27 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import { Button, TextField } from "@mui/material";
-
+import { PageLayout } from "../../components/Layout";
 import { SeatsType } from "../../constants/models/Movies";
 import styles from "./Customize.module.scss";
 import MoviesContext from "../../context/MoviesContext";
+import { MovieDetailsProps } from "../../types";
 
 const CustomizeRows = () => {
   const { movies, setMovies } = useContext(MoviesContext);
   const router = useRouter();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { id }: any = router.query;
+  const { id, movieFromReq }: any = router.query;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const movie = movies.find((mov) => mov.id === id);
 
   const [seatDetails, setSeatDetails] = useState<SeatsType>(movie?.seats || {});
   const [row, setRow] = useState<number>(movie?.rows || 0);
   const [column, setColumn] = useState<number>(movie?.cols || 0);
-
+  const [parsedMovie, setParsedMovie] = useState<MovieDetailsProps | null>(
+    null,
+  );
   useEffect(() => {
     clearSelectedSeats();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,6 +31,20 @@ const CustomizeRows = () => {
     handleSubmit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [row, column]);
+
+  useEffect(() => {
+    if (typeof movieFromReq === "string") {
+      // Spróbuj sparsować przekazany obiekt filmu
+      try {
+        const parsedMovieObj = JSON.parse(movieFromReq);
+        console.log(parsedMovieObj);
+
+        setParsedMovie(parsedMovieObj);
+      } catch (error) {
+        console.error("Błąd podczas parsowania obiektu filmu:", error);
+      }
+    }
+  }, [movieFromReq]);
 
   const clearSelectedSeats = () => {
     const newMovieSeatDetails = { ...seatDetails };
@@ -46,6 +64,8 @@ const CustomizeRows = () => {
   };
 
   const handleSubmit = () => {
+    console.log(column);
+
     const newSeatObject: SeatsType = {};
     let key: string;
     for (let i = 0; i < column; i++) {
@@ -60,7 +80,7 @@ const CustomizeRows = () => {
         newSeatObject[key] = Array(row)
           .fill(0)
           .map((_, i) => {
-            if (seatDetails && seatDetails[key] && concretSeatDetails[i]) {
+            if (seatDetails && concretSeatDetails && concretSeatDetails[i]) {
               return concretSeatDetails[i];
             } else {
               return 0;
@@ -72,43 +92,78 @@ const CustomizeRows = () => {
     setSeatDetails(newSeatObject);
   };
 
-  const handleSaveSetup = async () => {
+  const handleSaveSetup = (movie: MovieDetailsProps) => {
     const movieIndex = movies.findIndex((mov) => mov.id === id);
     const concretMovie = movies[movieIndex];
+    console.log(movieIndex !== -1);
+    console.log(setMovies);
+    console.log(concretMovie);
+
     if (movieIndex !== -1 && setMovies && concretMovie) {
       concretMovie.seats = seatDetails;
       setMovies(movies);
-      router.push(`/details/${id}`);
+      router.push({
+        pathname: "/movie",
+        query: { movie: JSON.stringify(movie) },
+      });
     }
   };
 
   const RenderInputFields = () => {
+    const movieObject = {
+      id: id,
+      backgroundImg: parsedMovie !== null ? parsedMovie.backgroundImg : "",
+      cardImg: parsedMovie !== null ? parsedMovie.cardImg : "",
+      titleImg: parsedMovie !== null ? parsedMovie.titleImg : "",
+      subTitle: parsedMovie !== null ? parsedMovie.subTitle : "",
+      title: parsedMovie !== null ? parsedMovie.title : "",
+      description: parsedMovie !== null ? parsedMovie.description : "",
+      stateType: parsedMovie !== null ? parsedMovie.stateType : "",
+    };
+
     return (
-      <div className={styles.inputContainer}>
+      <div className={`${styles.inputContainer} row-start-11 row-span-1`}>
         <form className={styles.inputHolder}>
           <TextField
             id="row"
             type="number"
-            label="Row"
             variant="outlined"
             size="small"
+            color="primary"
             className={styles.inputField}
             name="row"
             value={row}
+            sx={{
+              input: {
+                color: "white",
+                border: "2px solid white",
+                borderRadius: "5px",
+              },
+            }}
             onChange={(e) => setRow(parseInt(e.target.value) || 0)}
           />
           <TextField
-            id="outlined-basic"
+            id="outlined"
             type="number"
-            label="Column"
             variant="outlined"
             size="small"
+            color="success"
             className={styles.inputField}
+            sx={{
+              input: {
+                color: "white",
+                border: "2px solid white",
+                borderRadius: "5px",
+              },
+            }}
             value={column}
             onChange={(e) => setColumn(parseInt(e.target.value) || 0)}
           />
+
           <Button
-            onClick={handleSaveSetup}
+            onClick={() => {
+              handleSaveSetup(movieObject);
+            }}
             variant="contained"
             className={styles.saveSetUpButton}
           >
@@ -187,23 +242,34 @@ const CustomizeRows = () => {
         seatArray.push(colValue);
       }
     }
-    return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
+    return (
+      <div className={`${styles.seatsLeafContainer} row-span-5 row-start-6`}>
+        {seatArray}
+      </div>
+    );
   };
 
   if (!movie) return <div>loading...</div>;
   return (
-    <>
-      <Head>
-        <title>Customize Rows</title>
-      </Head>
-      <div className={styles.seatsContainer}>
-        {RenderInputFields()}
-        <p className={styles.header}>
-          Select Seats to be <b className={styles.headerBlockedText}>Blocked</b>
-        </p>
-        {seatDetails && <RenderSeats />}
+    <PageLayout>
+      <div className="flex h-full flex-col items-center justify-center gap-4 ">
+        <div
+          className={`${styles.seatsContainer}  grid w-4/6 grid-cols-1 items-end justify-center `}
+        >
+          {RenderInputFields()}
+          <p
+            className={`${styles.header} row-span-4 row-start-1 text-2xl text-white`}
+          >
+            Select Seats to be{" "}
+            <b className={styles.headerBlockedText}>Blocked</b>
+          </p>
+          <div
+            className={`${styles.movieInfo} row-span-1 row-start-5 mx-auto  h-6 w-5/6 bg-white`}
+          ></div>
+          {seatDetails && <RenderSeats />}
+        </div>
       </div>
-    </>
+    </PageLayout>
   );
 };
 

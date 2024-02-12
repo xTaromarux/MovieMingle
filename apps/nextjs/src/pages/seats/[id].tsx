@@ -139,6 +139,7 @@ const Seats = () => {
             query: {
               movieId: movie?.id,
               seatDetails: JSON.stringify(seatDetails),
+              movieFromReq: JSON.stringify(parsedMovie),
             },
           }}
         >
@@ -148,7 +149,7 @@ const Seats = () => {
               href="#contained-buttons"
               className={styles.paymentButton}
             >
-              KUPUJĘ
+              BUY
             </Button>
           </div>
         </Link>
@@ -203,7 +204,7 @@ const Seats = () => {
               style={{ width: "auto" }}
             />
             <div className="col-span-5 col-start-5 row-span-1 row-start-1 ml-9 ">
-              <p className="text-3xl">ZAKUP BILETU</p>
+              <p className="text-3xl">TICKET PURCHASE</p>
               <br />
               {parsedMovie.title}
               <br />
@@ -212,7 +213,7 @@ const Seats = () => {
             </div>
           </div>
           <h1 className="row-span-1 row-start-5 text-2xl text-white">
-            WYBRANE MIEJSCA
+            SELECTED SEATING
           </h1>
           <div
             className={`${styles.movieInfo} row-span-1 row-start-6 mx-auto  h-6 w-5/6 bg-white`}

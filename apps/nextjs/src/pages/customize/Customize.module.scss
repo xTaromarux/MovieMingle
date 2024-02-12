@@ -1,6 +1,9 @@
 .seatsContainer {
   text-align: center;
+  height: 100vh;
+  grid-template-rows: repeat(12, minmax(0, 1fr));
 }
+
 .seatsHolder {
   margin: 10px;
 }
@@ -8,40 +11,56 @@
   margin-left: -30px;
 }
 .seats {
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none;
   cursor: pointer;
-  color: #545454;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 700;
   padding: 7px 11px;
   border-radius: 3px;
+  outline: 2px solid rgba(144, 169, 89, 1);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 11%), 0 2px 4px 0 rgb(0 0 0 / 14%);
 }
 .colName {
-  color: #545454;
+  color: #ffffff;
   font-weight: 700;
   margin-right: 20px;
 }
 .seatSelected0 {
   color: red !important;
 }
+.seatBlocked {
+  cursor: default;
+  // background: #fff;
+  color: rgba(27, 30, 44, 1);
+  outline: 2px solid rgba(166, 61, 64, 1);
+  background: rgba(166, 61, 64, 1);
+  box-shadow: none;
+}
 .seatBooked {
-  background: rgba(138, 138, 138, 0.418);
+  color: rgba(27, 30, 44, 1);
+  outline: 2px solid rgba(233, 184, 114, 1);
+  background: rgba(233, 184, 114, 1);
   cursor: default;
 }
 .seatSelected {
-  color: #fff !important;
-  background: rgb(53 212 6);
-}
-.seatBlocked {
-  color: #fff !important;
-  background: tomato;
+  color: rgba(27, 30, 44, 1);
+  background: rgba(144, 169, 89, 1);
 }
 .paymentButton {
-  background: #f84464 !important;
+  background: none !important;
 }
 .paymentButtonContainer {
   position: sticky;
   bottom: 10px;
+  border: none;
+  border-radius: 10pt;
+  box-shadow: 0 0 0 1pt rgb(255, 255, 255);
+  outline-color: transparent; /* for high contrast modes */
+  transition: 0.1s;
 }
 .inputContainer {
   margin-bottom: 20px;
@@ -56,14 +75,27 @@
 }
 .inputField {
   width: 100px;
+  color: white !important;
+  outline-color: white !important;
   margin: 10px !important;
 }
 .saveSetUpButton {
   height: 40px !important;
   margin-top: 10px !important;
-  background: #f84464 !important;
+  border: none !important;
+  border-radius: 10pt !important;
+  box-shadow: 0 0 0 1pt rgb(255, 255, 255) !important;
+  outline-color: transparent !important; /* for high contrast modes */
+  transition: 0.1s !important;
   margin-left: 10px !important;
+  background: none !important;
 }
+
+.saveSetUpButton:active {
+  background-color: white !important;
+  color: black !important;
+}
+
 .header {
   margin-bottom: 30px;
   font-size: 25px;

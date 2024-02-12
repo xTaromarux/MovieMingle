@@ -15,7 +15,12 @@ const SignUpPage = () => (
         <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
           Sign Up
         </h1>
-        <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
+        <SignUp
+          path="/sign-up"
+          routing="path"
+          signInUrl="/sign-in"
+          afterSignUpUrl="/"
+        />
       </div>
     </div>
   </PageLayout>
