@@ -1,11 +1,12 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClapperboard } from "@fortawesome/free-solid-svg-icons";
+import { faClapperboard, faChair } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import { LoadingPage } from "../components/loading";
 import router from "next/router";
 import { type MovieDetailsProps } from "../types/index";
+import { useUser } from "@clerk/nextjs";
 
 const MovieDetailsComponent: React.FC<MovieDetailsProps> = ({
   id,
@@ -59,15 +60,22 @@ const MovieDetailsComponent: React.FC<MovieDetailsProps> = ({
   };
 
   const handleCardClick = (movie: MovieDetailsProps) => {
-    console.log(movie);
-
     router.push({
       pathname: `/seats/${id}`,
       query: { movieFromReq: JSON.stringify(movie) },
     });
   };
 
-  if (titleImgSrc == "")
+  const handleCustomizeClick = (movie: MovieDetailsProps) => {
+    router.push({
+      pathname: `/customize/${id}`,
+      query: { movieFromReq: JSON.stringify(movie) },
+    });
+  };
+
+  const { isSignedIn, user, isLoaded } = useUser();
+
+  if (titleImgSrc == "" && !isLoaded)
     return (
       <div className="flex grow">
         <LoadingPage />
@@ -90,34 +98,70 @@ const MovieDetailsComponent: React.FC<MovieDetailsProps> = ({
               className="col-span-6 row-span-1 row-start-1"
               style={{ width: "auto" }}
             />
-            <Button
-              variant="contained"
-              className="col-span-4 row-span-1 row-start-4"
-              onClick={() => {
-                handleCardClick(movieObject);
-              }}
-              style={{
-                backgroundColor: "white",
-                color: "black",
-                height: "70px",
-                borderRadius: "10px",
-                fontSize: "15px",
-                fontWeight: "bold",
-              }}
-              startIcon={
-                <FontAwesomeIcon
-                  icon={faClapperboard}
-                  style={{
-                    width: "1.5rem",
-                    height: "1.5rem",
-                    color: "black",
-                    padding: "10px",
-                  }}
-                />
-              }
-            >
-              Wybierz miejsce
-            </Button>
+            {isSignedIn ? (
+              <Button
+                variant="contained"
+                className="col-span-4 row-span-1 row-start-4"
+                onClick={() => {
+                  handleCardClick(movieObject);
+                }}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  height: "70px",
+                  borderRadius: "10px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+                startIcon={
+                  <FontAwesomeIcon
+                    icon={faChair}
+                    style={{
+                      width: "1.5rem",
+                      height: "1.5rem",
+                      color: "black",
+                      padding: "10px",
+                    }}
+                  />
+                }
+              >
+                Choose a seat
+              </Button>
+            ) : (
+              <div></div>
+            )}
+            {isSignedIn ? (
+              <Button
+                variant="contained"
+                className="col-span-4 col-start-6 row-span-1 row-start-4"
+                onClick={() => {
+                  handleCustomizeClick(movieObject);
+                }}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  height: "70px",
+                  borderRadius: "10px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+                startIcon={
+                  <FontAwesomeIcon
+                    icon={faClapperboard}
+                    style={{
+                      width: "1.5rem",
+                      height: "1.5rem",
+                      color: "black",
+                      padding: "10px",
+                    }}
+                  />
+                }
+              >
+                Customize room
+              </Button>
+            ) : (
+              <div></div>
+            )}
             <p className="col-span-10 row-span-1 row-start-5 text-white">
               SubTitle: {subTitle}
             </p>

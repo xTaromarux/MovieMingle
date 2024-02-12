@@ -3,7 +3,7 @@ import { TicketsType } from "./models/Movies";
 export const movies: TicketsType[] = [
   {
     id: "clqtupdoc0000i9gcttb3fiwh",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -18,7 +18,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtugilp000ki9fw381qsb5a",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -33,7 +33,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtucw1y000di9fwjolrdhn6",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -48,7 +48,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtu8z4u0006i9fw1g0zcflb",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -63,7 +63,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqttkl2l0006i9y8x8zhl81v",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -78,7 +78,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam20002i9gcwimb8392",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -93,7 +93,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam20004i9gc2gywuzxb",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -108,7 +108,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam30006i9gcq8ioj1eg",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -123,7 +123,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam30008i9gcqa3f23rm",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -138,7 +138,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam3000ai9gc5v2uosnd",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -153,7 +153,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam3000ci9gccolwtmnv",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -168,7 +168,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam4000ei9gc8e6x35nc",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -183,7 +183,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam4000gi9gcg2dva9ak",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -198,7 +198,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam4000ii9gcff3gfch2",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -213,7 +213,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam4000ki9gc8cx957ci",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {
@@ -228,7 +228,7 @@ export const movies: TicketsType[] = [
   },
   {
     id: "clqtuzam4000mi9gc37fjed5w",
-    ticketCost: 200,
+    ticketCost: 16,
     rows: 20,
     cols: 6,
     seats: {

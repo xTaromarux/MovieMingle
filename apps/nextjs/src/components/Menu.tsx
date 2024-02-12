@@ -43,7 +43,7 @@ const Menu: React.FC = () => {
                   href="/repertuar"
                   className="inline-block py-2 px-4 no-underline hover:text-gray-200 hover:underline"
                 >
-                  Repertuar
+                  Repertoire
                 </Link>
               </li>
             </ul>
@@ -89,6 +89,7 @@ const Menu: React.FC = () => {
           {isSignedIn && (
             <div className="flex items-center justify-center">
               <UserButton
+                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     userButtonAvatarBox: {
